@@ -1,7 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { LastFmService } from '../lastfm.service';
-import { EmptyTrack, Track } from '../Track-interface';
+import { EmptyTrack, Track } from '../interfaces/Track-interface';
 
+/**
+ * This component works as a landing page for the Paranoid App.
+ *
+ * The component fetches data from Last.fm API using LastFmService
+ * and gets the text inputs from there.
+ *
+ * The playcount and listener datas are formatted to
+ * more user-friendly output before user can see them. A progress
+ * spinner can be seen during data fetching.
+ *
+ * There are also a few embedded components: Chat and YouTube-video.
+ */
 
 @Component({
   selector: 'app-landing',

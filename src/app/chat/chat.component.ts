@@ -1,6 +1,27 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ChatService } from '../chat.service';
-import { ChatMessage } from '../Chat-interface';
+import { ChatMessage } from '../interfaces/Chat-interface';
+
+/**
+ * A simple SQL chat component.
+ *
+ * Uses ChatService to fetch and send data to a SQL database.
+ *
+ * User can see old messages, that hold data of the time sent,
+ * who (nick) sent it and the message. The time is automatically
+ * created at the SQL backend. The nick is either a user's
+ * own (max. 10 characters) or a random Black Sabbath singers.
+ *
+ * User can't send a message if all the needed options aren't
+ * given. The input of user's nick is disabled, if a random
+ * singer is choosed.
+ *
+ * This component can also easily be used as an embedded component,
+ * because of the added @Input variables, which determine the size
+ * of the component and can user see the title (Chat).
+ *
+ * @author Ilmari Tyrkkö
+ */
 
 @Component({
     selector: 'app-chat',
@@ -65,11 +86,13 @@ export class ChatComponent implements OnInit {
     ngOnInit(): void {
         this.updateChat();
     }
+    // Fetches the messages from SQL database
     updateChat(): void {
         this.chat.getChatMsgs((result) => {
             this.chatMessages = result.reverse();
         });
     }
+    // Sends a message to the SQL database
     sendMsg(): void {
         if ((this.sender.length >= 3 || !this.inputState) && this.msgChoice !== '') {
             let senderName = '';
@@ -88,10 +111,12 @@ export class ChatComponent implements OnInit {
             this.validationText = 'Please choose a message and give a nick longer than 2 characters.';
         }
     }
+    // Formats the SQL DATETIME value to a local datetime format
     formatTime(time: string): string {
         const date = new Date(time).toLocaleString();
         return date;
     }
+    // Ables the disable of user nick input if random singer is chosen
     changeInputState() {
         this.inputState = !this.inputState;
     }

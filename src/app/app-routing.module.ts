@@ -5,6 +5,10 @@ import { SetlistsComponent } from './setlists/setlists.component';
 import { AlbumtableComponent } from './albumtable/albumtable.component';
 import { ChatComponent } from './chat/chat.component';
 
+/**
+ * This file handles the Paranoid App routing.
+ */
+
 const routes: Routes = [
   { path: '', component: LandingComponent, pathMatch: 'full' },
   { path: 'setlists', component: SetlistsComponent },

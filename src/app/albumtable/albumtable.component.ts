@@ -2,7 +2,19 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { SpotifyService } from '../spotify.service';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { EmptySearchData, EmptySpotifyTrack, SpotifySearchData, SpotifyTrack } from '../Spotify-interface';
+import { EmptySearchData, EmptySpotifyTrack, SpotifySearchData, SpotifyTrack } from '../interfaces/Spotify-interface';
+
+/**
+ * This component show user data fetched from Spotify API.
+ *
+ * It uses SpotifyService to get track data and track search data from
+ * Spotify API. Then it adds the search data to a table. Some of the track data
+ * can be seen on a "info box". The popularity of the song is displayed in a
+ * mat progress bar. User can sort table table columns. A progress spinner
+ * is displayed while data is fetched.
+ *
+ * @author Ilmari Tyrkkö
+ */
 
 @Component({
   selector: 'app-albumtable',
@@ -67,7 +79,7 @@ import { EmptySearchData, EmptySpotifyTrack, SpotifySearchData, SpotifyTrack } f
           <td mat-cell *matCellDef="let element"> {{ msToTime(element.duration_ms) }} </td>
         </ng-container>
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="onRowClicked(row)"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>
 
       <mat-paginator
@@ -96,9 +108,12 @@ export class AlbumtableComponent implements OnInit {
 
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
+  // when isLoading is true, user can see progress spinner and divs where there is user data are hidden.
   constructor(private spotify: SpotifyService) {
     this.isLoading = true;
   }
+  // At first gets a new token for using Spotify API. After that
+  // fetches two kind of data and adds them local variables.
   ngOnInit(): void {
     this.spotify.fetchToken((booleanResponse: boolean) => {
       this.spotify.fetchSearchData((result) => {
@@ -125,16 +140,14 @@ export class AlbumtableComponent implements OnInit {
     });
   }
 
-  onRowClicked(row: any) {
-    console.log(row);
-  }
-
+  // Formats milliseconds to format MM:ss
   msToTime(ms: number) {
     const seconds: number = Math.floor((ms / 1000) % 60);
     const minutes: number = Math.floor((ms / (1000 * 60) % 60));
     return minutes + ':' + seconds;
   }
 
+  // Sends a fetch request for new data if paginator arrow is pressed
   pageChange($event: any) {
     this.isLoading = true;
     let nextUrl = '';

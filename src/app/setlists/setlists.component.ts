@@ -1,7 +1,35 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Setlistfm } from '../setlistfm.service';
-import { SetlistfmData, EmptySetlistfmData } from '../SetlistFm-interface';
+import { SetlistfmData, EmptySetlistfmData } from '../interfaces/SetlistFm-interface';
 import { MatPaginator } from '@angular/material/paginator';
+
+/**
+ * This component ables to user to see Black Sabbath setlists from the past.
+ *
+ * The data is fetched from Setlist.Fm API using SetlistFmService.
+ *
+ * When first loaded the component automatically fetches all concert data from
+ * the API. A progress spinner can be seen during fetching. Then the data is
+ * inserted to a mat table. User can see a set of 20 gigs a time and can move
+ * to another page using paginator.
+ *
+ * The table shows the following information of a gig: Date, tour Name, location,
+ * venue, setlist and if Paranoid was played on that gig.
+ * - The date has a link to a Setlist.fm page for more information about the gig.
+ * - The location has a link to Google Maps based on coordinates given from Setlist.fm
+ * - The setlist can be seen as modal after button click. Paranoid is seen in red font.
+ * - If Paranoid was played on a particular gig, user can see a "sign of horns" emoji,
+ *   else user will see a unamused emoji.
+ *
+ * User can also search for gigs from the Setlist.fm API database with city, year or
+ * tour name criteria. These inputs are validated on user input. There is also a
+ * little data validation at the backend.
+ *
+ * The page layout is modified by many booleans (more told before constructor)
+ * that are inserted to ngIfs.
+ *
+ * @author Ilmari Tyrkkö
+ */
 
 @Component({
   selector: 'app-setlists',
@@ -142,6 +170,9 @@ export class SetlistsComponent implements OnInit {
   userHasSearchedData: boolean;
   noResultsFound: boolean;
 
+  // isLoading is true while data is fetched,
+  // userHasSearchedData is true while a search request is the last fetch request,
+  // noResultsFound is true if search requests returns no data
   constructor(private setlistfm: Setlistfm) {
     this.isLoading = true;
     this.userHasSearchedData = false;
@@ -152,13 +183,14 @@ export class SetlistsComponent implements OnInit {
     this.fetchAll();
   }
 
+  // fetches all gigs
   fetchAll(pageNumber: string = '1') {
     this.isLoading = true;
     this.userHasSearchedData = false;
     this.setlistfm.fetchData(pageNumber, (result) => {
       this.data = result;
 
-      // adding a boolean value for every setlist to control show/hide setlist
+      // adding boolean values for additional features on UI
       for ( const setlist of this.data.setlist ) {
         setlist.showMe = false;
         setlist.paranoidPlayed = false;
@@ -180,6 +212,7 @@ export class SetlistsComponent implements OnInit {
     });
   }
 
+  // Gives a search request based on user given criteria
   searchData(pageNumber: string = '1'): void {
     this.isLoading = true;
     this.userHasSearchedData = true;
@@ -213,6 +246,7 @@ export class SetlistsComponent implements OnInit {
     });
   }
 
+  // Changes the paginator page
   pageChange($event: any): void {
     const pageNumber: string = $event.pageIndex + 1;
     if (this.userHasSearchedData) {

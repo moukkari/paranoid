@@ -26,6 +26,7 @@ import { ChatComponent } from './chat/chat.component';
 import { FormsModule } from '@angular/forms';
 import { MatRadioModule } from '@angular/material/radio';
 
+// Includes all the used components, modules and services of the Paranoid App
 
 @NgModule({
   declarations: [

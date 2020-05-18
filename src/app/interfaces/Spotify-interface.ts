@@ -1,3 +1,5 @@
+// A file that includes all needed interfaces to handle Spotify API data.
+
 interface SpotifyExternalUrls {
     spotify: string;
 }

@@ -1,3 +1,5 @@
+// A file that includes all needed interfaces to handle Last.fm data.
+
 export interface AlbumImageItem {
     '#text': string;
     size: string;

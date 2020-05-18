@@ -1,3 +1,5 @@
+// A file that includes all interfaces needed to handle Setlist.fm data
+
 interface SetlistFmArtistArray {
     disambiguation: string;
     mbid: string;

@@ -1,11 +1,17 @@
 /**
  * This service provides data from Spotify API
+ *
  * When fetching data from Spotify API, you need a bearer token.
- * A working bearer (this.accesToken) token can be updated with the fetchToken method
+ * A working bearer (this.accesToken) token can be updated with the fetchToken method.
+ *
+ * There are also methods for fetching data of the track Paranoid by Black Sabbath and
+ * one for searching all different versions of Paranoid found from Spotify. Also one
+ * for changing the page with paginator.
  *
  * @author Ilmari Tyrkkö
  *
  */
+
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 

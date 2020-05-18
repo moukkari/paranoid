@@ -1,6 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
-import { SetlistfmData } from './SetlistFm-interface';
+import { SetlistfmData } from './interfaces/SetlistFm-interface';
+
+/**
+ * A service that fetches Setlist.fm API data using
+ * a middleware server.
+ *
+ * There are methods for fetching all Black Sabbath concert data
+ * and one for searching data of Black Sabbath concerts.
+ */
 
 @Injectable({
     providedIn: 'root'
@@ -10,8 +18,8 @@ export class Setlistfm {
   searchUrl: string;
 
   constructor(private http: HttpClient) {
-    this.url = 'http://localhost:3000/setlistfm/';
-    this.searchUrl = 'http://localhost:3000/setlistfmsearch/';
+    this.url = 'https://soittakaaparanoid.herokuapp.com/setlistfm/';
+    this.searchUrl = 'https://soittakaaparanoid.herokuapp.com/setlistfmsearch/';
   }
 
   fetchData(page: string, callBackFunction: (result: SetlistfmData) => void ): void {

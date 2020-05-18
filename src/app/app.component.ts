@@ -1,5 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 
+/**
+ * This component is the base component for the Paranoid App.
+ *
+ * The component includes the app's responsive navibar that
+ * includes to links to all different pages of the site.
+ * There is also an embedded Spotify player component on the navibar.
+ *
+ * The middle of the page is based on router output and there is a
+ * footer at the bottom of the page.
+ *
+ * @author Ilmari Tyrkkö
+ */
+
 @Component({
   selector: 'app-root',
   template: `

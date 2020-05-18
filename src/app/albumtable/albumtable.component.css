@@ -1,0 +1,38 @@
+.loader {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 10%;
+    text-align: center;
+}
+.spinner {
+    position: relative;
+    top: 10%;
+    width: 100%;
+    display: inline-block;
+}
+.myProgressBar {
+    height: 100%;
+    border-radius: 25px;
+}
+.barContainer {
+    position: relative;
+    height: 50px;
+    margin-bottom: 1em;
+}
+.barContainerChild {
+    line-height: 50px;
+    position: absolute;
+    top: 0;
+    left: 33%;
+    font-size: larger;
+}
+.spotifyTable {
+    width: 100%;
+}
+.spotifyTable th:nth-child(1) { width: 17%; }
+.spotifyTable th:nth-child(2) { width: 33%; }
+.spotifyTable th:nth-child(3) { width: 32%; }
+.spotifyTable th:nth-child(4) { width: 10%; }
+.spotifyTable th:nth-child(5) { width: 8%; }

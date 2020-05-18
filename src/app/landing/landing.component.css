@@ -1,0 +1,32 @@
+.main {
+    background: black;
+    color: white;
+}
+h1, h2, h3, h4, h5 {
+    font-weight: bolder;
+    color: rgb(210, 0, 100);
+}
+.center {
+    text-align: center;
+}
+.bignumber {
+    font-size: x-large;
+}
+.loader {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 10%;
+    text-align: center;
+}
+.spinner {
+    position: relative;
+    top: 10%;
+    width: 100%;
+    display: inline-block;
+}
+.landingStats {
+    background: linear-gradient(to right, rgba(0,0,0,0), rgba(210,0,100,1));
+    border-radius: 10px;
+}

@@ -1,0 +1,65 @@
+.chatMain {
+    text-align: left;
+    margin-bottom: 1em;
+}
+::-webkit-scrollbar {
+    width: 5px;
+}
+::-webkit-scrollbar-track {
+    background: #000; 
+}
+::-webkit-scrollbar-thumb {
+    background: rgb(210, 0, 100); 
+}
+.chatBox {
+    border: 1px solid rgb(210, 0, 100);
+    border-radius: 10px 0px 0px 10px;
+    overflow-y: auto;
+    color: black;
+    margin-bottom: 1em;
+}
+.chatTime {
+    color: grey;
+    font-size: smaller;
+}
+.chatSender {
+    color: rgb(210, 0, 100);
+}
+.chatMsg {
+    border: 1px solid rgb(210, 0, 100);
+    background: white;
+    border-radius: 10px;
+    padding: 0.5em;
+    margin: 0.5em;
+}
+.validationText {
+    font-size: xx-small;
+    color: rgb(210, 0, 100);
+}
+.chatMain input {
+    margin-left: 1em;
+    border-radius: 10px;
+    padding-left: 0.5em;
+}
+.chatMain button {
+    margin-left: 0.5em;
+    border-radius: 10px;
+    background: rgb(210, 0, 100);
+    color: black;
+}
+.chatRadioButton {
+    margin-left: 1em;
+}
+.chatMain label {
+    color: rgb(210, 0, 100);
+    font-size: smaller;
+}
+.videoFrame {
+    position: relative;
+    width: 100%;
+}
+.videoFrame iframe {
+    position: absolute;
+    width: 100vw;
+    height: calc(100vw/1.77777778)
+}

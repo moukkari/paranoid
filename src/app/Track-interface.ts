@@ -53,6 +53,22 @@ export interface Track {
     wiki?: WikiItem;
 }
 
+// Not used atm
+export interface Album {
+    album_type: string;
+    artists: number[];
+    available_markets: string[];
+    external_urls: string[];
+    href: string;
+    id: string;
+    images: number[];
+    name: string;
+    release_date: string;
+    release_date_precision: string;
+    total_tracks: number;
+    type: string;
+    uri: string;
+}
 
 export const EmptyTrack: Track = {
     album: {'@attr': '0', artist: '',

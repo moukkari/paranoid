@@ -2,56 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { SpotifyService } from '../spotify.service';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-
-interface SpotifyExternalUrls {
-  spotify: string;
-}
-
-interface SpotifyTrackAlbum {
-  release_date: string;
-  id: string;
-  external_urls: SpotifyExternalUrls;
-}
-
-interface SpotifyTrack {
-  album: SpotifyTrackAlbum;
-  artists: string[];
-  available_markets: string[];
-  disc_number: number;
-  duration_ms: number;
-  explicit: boolean;
-  external_ids: string[];
-  external_urls: SpotifyExternalUrls;
-  href: string;
-  id: string;
-  is_local: boolean;
-  name: string;
-  popularity: number;
-  preview_url: string;
-  track_number: number;
-  type: string;
-  uri: string;
-}
-const EmptySpotifyTrack: SpotifyTrack = {
-  album: { release_date: '', id: '', external_urls: { spotify: ''} },
-  artists: [],
-  available_markets: [],
-  disc_number: null,
-  duration_ms: null,
-  explicit: false,
-  external_ids: [],
-  external_urls: { spotify: '' },
-  href: '',
-  id: '',
-  is_local: false,
-  name: '',
-  popularity: null,
-  preview_url: '',
-  track_number: null,
-  type: '',
-  uri: ''
-};
-
+import { EmptySearchData, EmptySpotifyTrack, SpotifySearchData, SpotifyTrack } from '../Spotify-interface';
 
 @Component({
   selector: 'app-albumtable',
@@ -135,13 +86,8 @@ export class AlbumtableComponent implements OnInit {
   count = 1;
   paranoidTrackLength = '';
   isLoading: boolean;
-  trackData = EmptySpotifyTrack;
-
-  dataSource: any[] = [ {album_type: 'album', artists: [0, 1],
-    album: {name: 'empty', release_date: '2020-00-00', href: '', external_urls: {spotify: ''}},
-    available_markets: ['fi'], external_urls: {spotify: ''}, href: '', id: '',
-    images: [], name: 'empty', release_date: '2020', release_date_precision: 'year',
-    total_tracks: 1, type: 'single', uri: '', duration_ms: 0}];
+  trackData: SpotifyTrack = EmptySpotifyTrack;
+  dataSource: SpotifySearchData[] = EmptySearchData;
 
   displayedColumns: string[] = ['artists[0].name', 'name', 'album.name', 'release_date', 'duration_ms'];
   paginator: {limit: 5, next: '', offset: 0, previous: '', total: 0};
@@ -157,7 +103,6 @@ export class AlbumtableComponent implements OnInit {
     this.spotify.fetchToken((booleanResponse: boolean) => {
       this.spotify.fetchSearchData((result) => {
         this.dataSource = result.tracks.items;
-        console.log(this.dataSource);
         this.count = result.tracks.total;
         this.paginator = result.tracks;
         this.isLoading = booleanResponse;
@@ -172,7 +117,7 @@ export class AlbumtableComponent implements OnInit {
         };
         this.data.sort = this.sort;
       });
-      this.spotify.fetchTrackData((response: any) => {
+      this.spotify.fetchTrackData((response: SpotifyTrack) => {
         console.log(response);
         this.trackData = response;
         this.paranoidTrackLength = this.msToTime(response.duration_ms);
@@ -191,7 +136,7 @@ export class AlbumtableComponent implements OnInit {
   }
 
   pageChange($event: any) {
-    // this.isLoading = true
+    this.isLoading = true;
     let nextUrl = '';
 
     if ($event.previousPageIndex < $event.pageIndex) {
@@ -204,6 +149,7 @@ export class AlbumtableComponent implements OnInit {
       this.data = new MatTableDataSource(this.dataSource);
       this.data.sort = this.sort;
       this.paginator = result.tracks;
+      this.isLoading = false;
     });
   }
 }
